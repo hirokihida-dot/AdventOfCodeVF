@@ -1,0 +1,45 @@
+--------------------------------Memoria Día 5 (códigodia5.cpp):--------------------------------------------------------
+
+En este problema del Advent of Code se nos planteaba un problema sobre un sistema de gestión de un inventario. 
+
+Se nos proporcionaba una lista de ingredientes para comprobar y un listado de rangos que nos indicaban cuanles de estos
+
+productos eran válidos y cuales no. El problema nos pedía la cantidad de productos que eran válidos (frescos).
+
+Para la implementación de estre programa hemos decidido utilizar la estructura Hash vista en la asignatura, para realizar
+
+la identificación de los ID válidos de forma óptima. Esto nos permite hacer una búsqueda con una estructura de datos 
+
+óptima
+
+El programa comienza leyendo el archivo puzzle.txt, que contiene tanto la lista de rangos cómo la lista de ingredientes
+
+a revisar. Después el programa lee, analiza (parsing) y almacena los rangos de ID, que serán las reglas para la selección 
+
+de productos que son válidos para la resolución del problema. 
+
+Los rangos de ID están escritos separados por un guión, y puede haber solapamientos de los mismos, lo que puede dar a que
+
+un mismo ID esté en dos rangos separados.
+
+Una vez se ha procesado la información de los rangos el programa pasa a leer las ID's, el programa lee los ID's y los pasa
+
+a comprobar uno a uno por si coincide con los rangos o no. Si coincide con alguno de los rangos se aumentará el contador 
+
+que va ennumerando los productos que están frescos.
+
+Esta aproximación al problema es funcional ya que lo que debemos hacer es primero construir una tabla con los rangos que 
+
+queremos comprobar y después pasar la lista de productos por esa tabla de rangos, es una estructura clara. 
+
+En cuanto a alternativas, podrían haberse utilizado otras estructuras o representaciones, como rangos ordenados o 
+
+búsqueda binaria, encontrando el rango que fuese inmediatamente inferior al ID del producto buscado pero queríamos utilizar
+
+las estructuras vistas en la asignatura. Y de estas estructuras las tablas Hash eran las que más se adecuaban al problema.
+
+En conclusión, La solución implementada cumple con el requisito del problema de identificar y contar los IDs válidos. 
+
+La solución es modular, eparando claramente la fase de configuración (lectura de rangos) de la fase de ejecución (verificación de IDs).
+
+No obstante para una cantidad masiva de rangos sería procedente utilizar otro método para reducir la complejidad a O(long N).
