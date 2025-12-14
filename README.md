@@ -1,7 +1,7 @@
 Hola buenas en este repositorio de github encontrares el advent of code resuelto por el grupo "Los Recursivos" compuesto por:
 -Aarón Poveda Joâo
 -Andreu Llorens 
--Carlos
+-Carlos Rams Aleixandre
 -Zaid
 
 Aqui encontrara las soluciones a los siguientes dias:
