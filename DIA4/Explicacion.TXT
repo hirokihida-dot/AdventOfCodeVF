@@ -1,0 +1,21 @@
+--------------------------------Memoria Día 4 (códigodia4.cpp):--------------------------------------------------------
+
+En este problema del Advent of Code hemos trabajado con un mapa formado por rollos de papel representados con el carácter '@'. Cada uno de estos rollos puede interpretarse como un nodo, y dos rollos están conectados si están en alguna de las ocho posiciones adyacentes (horizontal, vertical o diagonal). Por tanto, el mapa puede modelarse como un gráfico no ponderado donde cada vértice conoce a los rollos que tiene cerca. Este enfoque encaja muy bien con los contenidos vistos en clase y permite resolver el problema de forma estructurada.
+
+Para la implementación hemos reutilizado parte del código de prácticas: la clase Node, la estructura ListLinked y la clase Graph construida sobre listas de adyacencia. Gracias a estas estructuras hemos podido representar el mapa como un gráfico sin utilizar estructuras de la STL, cumpliendo así con las restricciones de la asignatura y aprovechando el trabajo desarrollado previamente.
+
+El programa comienza leyendo el archivo puzzle.txt, que contiene el mapa original del reto. Cada línea representa una fila y cada posición con '@' se convierte en un vértice del gráfico. A cada rollo se le asigna un índice y después se recorre sus ocho posiciones vecinas; si alguna de ellas contiene otro '@', se añade una arista entre los dos nodos usando Graph::addEdge. De esta forma, cada vértice queda asociado a la lista de todos sus vecinos directos.
+
+Una vez construido el gráfico, la solución se divide en dos partes: Part 1 y Part 2.
+
+Parte 1: En la primera parte se trata de determinar cuántos rollos son accesibles por un montacargas. El enunciado indica que un rollo es accesible si tiene menos de cuatro vecinos adyacentes. Gracias al grafo construido, comprobar esto es tan simple como consultar el tamaño de la lista vecinos(v) de cada nodo. El programa recorre todos los vértices y cuántas cuentas tienen un grado estrictamente menor que cuatro. Este recuento es el resultado de la Parte 1.
+
+Parte 2: En la segunda parte hay que simular un proceso de eliminación de rollos. Si un rollo es accesible (tiene menos de cuatro vecinos), puede eliminarse. Al eliminarlo, sus vecinos pierden un adyacente y puede que pasen a ser accesibles a su vez. Por tanto, el proceso debe repetirse hasta que ya no quede ningún rollo con menos de cuatro vecinos.
+
+Para simular este comportamiento se utiliza una cola implementada también con ListLinked. Primero se añaden a la cola todos los nudos cuyo grado inicial es menor que cuatro. Después se extrae un nodo, se marca como eliminado y se reduce en uno el grado de todos sus vecinos. Si alguno de ellos pasa a tener un grado menor que cuatro, se vuelve accesible y se añade a la cola. El proceso continúa hasta que la cola queda vacía. La cantidad total de nodos eliminados durante la simulación es el resultado de la Parte 2.
+
+Este enfoque funciona bien porque el problema se reduce a gestionar los grados de los nodos del gráfico y actualizar sus valores a medida que se van eliminando vértices. No es necesario ejecutar BFS tradicional ni calcular rutas, ya que el reto no trata de encontrar caminos sino sobre determinar la accesibilidad local y cómo esto cambia dinámicamente al modificar el gráfico.
+
+En cuanto a alternativas, podrían haberse utilizado otras estructuras o representaciones, como vectores dinámicos o colas de la STL, pero el objetivo principal era aplicar las estructuras construidas en las prácticas. Tampoco era necesario emplear algoritmos de caminos mínimos, programación dinámica o estructuras basadas en árboles, ya que el problema se resuelve de forma directa gestionando las listas de adyacencia.
+
+En conclusión, este problema es una buena oportunidad para aplicar de manera práctica la representación de gráficos mediante listas enlazadas, entender el concepto de grado de un nodo y ver cómo un pequeño cambio en la estructura (eliminación de vértices) puede modificar completamente el comportamiento del sistema. Separar la solución en Part 1 y Part 2 también ayuda a comprender cómo diferentes condiciones sobre el mismo grafo pueden abordarse de forma modular cambiando únicamente la lógica que actúa sobre él.
